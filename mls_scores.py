@@ -43,7 +43,7 @@ def getScores(team,date=str(datetime.date.today())):
 		for game in gamesAtDate:
 			stopIdx = data.find(']',game)
 
-			if data[game:stopIdx].find('MTL') != -1:
+			if data[game:stopIdx].find(team) != -1:
 				startIdx = game
 				
 	
