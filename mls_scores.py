@@ -1,9 +1,32 @@
 import urllib2
 import datetime
+import tweepy
 
 # today = str(datetime.date.today())
 # today = '2015-05-23'
 # team = 'MTL'
+
+consumer_key = ''
+consumer_secret = ''
+token_key = ''
+token_secret = ''
+
+
+def getMarker(username):
+	## twitter authentification
+	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+	auth.secure = True
+	auth.set_access_token(token_key, token_secret)
+	api = tweepy.API(auth)
+	
+	## look up user tweets
+	# user = api.get_user(username)
+	timeline = api.user_timeline(screen_name=username, include_rts=True, count=100)
+	for tweet in timeline:
+		if ((tweet.text.lower().find('goal') !=-1 ) or (tweet.text.lower().find('but') != -1)):
+			return tweet.text
+			break
+		
 
 def getScores(team,date=str(datetime.date.today())):
 	## enter two or three letters team name as argument, game date as optional argument (format 'yyyy-mm-dd')
